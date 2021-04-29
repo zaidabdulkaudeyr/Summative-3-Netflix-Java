@@ -1,4 +1,6 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model;
 
-public class Tshirt {
+public class Tshirt
+{
+
 }
