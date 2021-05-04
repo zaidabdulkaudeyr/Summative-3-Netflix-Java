@@ -26,6 +26,9 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao
     private static final String SELECT_ALL_INVOICES_SQL =
             "select * from invoice";
 
+    private static final String DELETE_INVOICES_SQL =
+            "delete from invoice where invoice_id = ?";
+
     @Autowired
     public InvoiceDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
 

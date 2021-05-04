@@ -12,4 +12,6 @@ public interface InvoiceDao
     Invoice getInvoice(int id);
 
     List<Invoice> getAllInvoices();
+
+    void deleteConsole(int id);
 }
