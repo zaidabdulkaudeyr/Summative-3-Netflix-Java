@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameDaoJdbcTemplateImplTest {
+class GameDaoTest {
 
     @Test
     void addGame() {
@@ -19,14 +19,6 @@ class GameDaoJdbcTemplateImplTest {
     }
 
     @Test
-    void updateGame() {
-    }
-
-    @Test
-    void deleteGame() {
-    }
-
-    @Test
     void getGamesByStudio() {
     }
 
@@ -36,5 +28,13 @@ class GameDaoJdbcTemplateImplTest {
 
     @Test
     void getGamesByTitle() {
+    }
+
+    @Test
+    void updateGame() {
+    }
+
+    @Test
+    void deleteGame() {
     }
 }
