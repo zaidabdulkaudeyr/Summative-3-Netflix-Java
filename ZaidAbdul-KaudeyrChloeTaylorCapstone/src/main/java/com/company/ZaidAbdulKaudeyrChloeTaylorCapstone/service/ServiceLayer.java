@@ -17,6 +17,12 @@ public class ServiceLayer {
     public ServiceLayer(ConsoleDao consoleDao, GameDao gameDao, TshirtDao tshirtDao, InvoiceDao invoiceDao, ProcessingFeeDao processingFeeDao, TaxDao taxDao) {
         this.consoleDao = consoleDao;
         this.gameDao = gameDao;
-
+        this.tshirtDao = tshirtDao;
+        this.invoiceDao = invoiceDao;
+        this.processingFeeDao = processingFeeDao;
+        this.taxDao = taxDao;
     }
+
+    //The complicated stuff
+
 }
