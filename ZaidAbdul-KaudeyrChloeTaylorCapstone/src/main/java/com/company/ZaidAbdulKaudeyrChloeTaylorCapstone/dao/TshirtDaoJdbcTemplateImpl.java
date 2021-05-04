@@ -33,11 +33,10 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
             "select * from t_shirt where size = ?";;
 
     private static final String DELETE_TSHIRT_SQL =
-            "delete from book where t_shirt_id = ?";
+            "delete from t_shirt where t_shirt_id = ?";
 
     private static final String UPDATE_TSHIRT_SQL =
-            "update book set size = ?, color = ?, description = ?, price = ?, quantity = ? where t_shirt_id = ?";
-
+            "update t_shirt set size = ?, color = ?, description = ?, price = ?, quantity = ? where t_shirt_id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -95,12 +94,12 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
     {
         jdbcTemplate.update(
                 UPDATE_TSHIRT_SQL,
-                tshirt.getId(),
                 tshirt.getSize(),
                 tshirt.getColor(),
                 tshirt.getDescription(),
                 tshirt.getPrice(),
-                tshirt.getQuantity());
+                tshirt.getQuantity(),
+                tshirt.getId());
     }
 
     @Override

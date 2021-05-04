@@ -49,7 +49,7 @@ public class ConsoleDaoTest {
         //Assert
         assertEquals(console1, console);
 
-        consoleDao.deleteConsole(console.getId());;
+        consoleDao.deleteConsole(console.getId());
         console1 = consoleDao.getConsole(console.getId());
 
         //Assert
