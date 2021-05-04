@@ -21,10 +21,7 @@ public class ConsoleDaoTest {
 
     @Autowired
     ConsoleDao consoleDao;
-    @Autowired
-    GameDao gameDao;
-    @Autowired
-    TshirtDao tshirtDao;
+
 
     @Before
     public void setUp() throws Exception{
@@ -32,16 +29,6 @@ public class ConsoleDaoTest {
         List<Console> dList = consoleDao.getAllConsoles();
         for (Console d : dList){
             consoleDao.deleteConsole(d.getId());
-        }
-
-        List<Game> pList = gameDao.getAllGames();
-        for (Game p : pList) {
-            gameDao.deleteGame(p.getId());
-        }
-
-        List<Tshirt> aList = tshirtDao.getAllTshirts();
-        for (Tshirt a : aList) {
-            tshirtDao.deleteTshirt(a.getId());
         }
     }
 
