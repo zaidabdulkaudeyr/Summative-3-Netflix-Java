@@ -6,15 +6,15 @@ import java.util.Objects;
 public class Tax
 {
     //properties
-    private char state;
+    private String state;
     private BigDecimal rate;
 
     //getters and setters
-    public char getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(char state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -32,11 +32,11 @@ public class Tax
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tax tax = (Tax) o;
-        return state == tax.state && Objects.equals(rate, tax.rate);
+        return Objects.equals(getState(), tax.getState()) && Objects.equals(getRate(), tax.getRate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(state, rate);
+        return Objects.hash(getState(), getRate());
     }
 }
