@@ -1,4 +1,8 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao;
 
-public interface TaxDao {
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tax;
+
+public interface TaxDao
+{
+    Tax getTaxByState(String state);
 }
