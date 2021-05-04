@@ -13,5 +13,5 @@ public interface InvoiceDao
 
     List<Invoice> getAllInvoices();
 
-    void deleteConsole(int id);
+    void deleteInvoice(int id);
 }

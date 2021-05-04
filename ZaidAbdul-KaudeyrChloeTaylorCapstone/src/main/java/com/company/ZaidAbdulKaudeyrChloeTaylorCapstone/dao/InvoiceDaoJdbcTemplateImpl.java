@@ -77,6 +77,12 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao
         return jdbcTemplate.query(SELECT_ALL_INVOICES_SQL, this::mapRowToGame);
     }
 
+    @Override
+    public void deleteInvoice(int id)
+    {
+        jdbcTemplate.update(DELETE_INVOICES_SQL, id);
+    }
+
     //row mapper
     private Invoice mapRowToGame(ResultSet rs, int rowNum) throws SQLException
     {
