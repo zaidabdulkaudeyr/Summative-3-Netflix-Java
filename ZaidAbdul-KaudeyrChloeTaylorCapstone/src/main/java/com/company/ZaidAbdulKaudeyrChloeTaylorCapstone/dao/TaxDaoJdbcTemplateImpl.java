@@ -2,6 +2,7 @@ package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao;
 
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tax;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,14 @@ public class TaxDaoJdbcTemplateImpl implements  TaxDao{
     @Override
     @Transactional
     public Tax getTaxByState(String state){
-        return null;
+        try
+        {
+            return jdbcTemplate.queryForObject(SELECT_TAX_SQL, this::mapRowToTax, state);
+        } catch (EmptyResultDataAccessException e)
+        {
+            // if nothing is returned just catch the exception and return null
+            return null;
+        }
     }
 
     //row mapper
