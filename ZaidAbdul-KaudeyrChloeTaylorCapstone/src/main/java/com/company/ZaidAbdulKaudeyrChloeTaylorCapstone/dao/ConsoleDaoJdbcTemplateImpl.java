@@ -76,7 +76,12 @@ public class ConsoleDaoJdbcTemplateImpl implements ConsoleDao {
 
     @Override
     public List<Console> getConsolesByManufacturer(String manufacturer) {
-        return jdbcTemplate.query(SELECT_CONSOLES_BY_MANUFACTURER_SQL, this::mapRowToConsole, manufacturer);
+        try {
+            return jdbcTemplate.query(SELECT_CONSOLES_BY_MANUFACTURER_SQL, this::mapRowToConsole, manufacturer);
+        } catch (EmptyResultDataAccessException e) {
+            // if there is no match for this album title, return null
+            return null;
+        }
     }
 
     @Override
