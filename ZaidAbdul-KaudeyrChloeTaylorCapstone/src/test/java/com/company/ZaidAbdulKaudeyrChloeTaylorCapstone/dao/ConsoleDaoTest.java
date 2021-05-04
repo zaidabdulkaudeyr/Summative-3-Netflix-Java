@@ -4,7 +4,7 @@ import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Console;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Game;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -99,7 +99,7 @@ public class ConsoleDaoTest {
     }
 
     @Test
-    void getConsolesByManufacturer() {
+    public void getConsolesByManufacturer() {
 
         //First console
         Console console = new Console();
@@ -124,11 +124,11 @@ public class ConsoleDaoTest {
         List<Console> bList = consoleDao.getConsolesByManufacturer("Nintendo");
 
         //Assert
-        assertEquals(bList.size(), 2);
+        assertEquals(bList.size(), 1);
     }
 
     @Test
-    void updateConsole() {
+    public void updateConsole() {
 
         //add console
         Console console = new Console();
