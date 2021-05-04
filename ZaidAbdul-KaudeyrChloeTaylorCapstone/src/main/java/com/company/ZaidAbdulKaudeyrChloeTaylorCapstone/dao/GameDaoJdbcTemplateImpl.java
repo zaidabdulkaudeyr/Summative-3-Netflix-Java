@@ -28,7 +28,7 @@ public class GameDaoJdbcTemplateImpl implements GameDao
             "select * from game";
 
     private static final String UPDATE_GAME_SQL =
-            "update game set game_id = ?, title = ?, esrb_rating = ?, description = ?, price = ?, studio = ?, quantity = ? where game_id = ?";
+            "update game set title = ?, esrb_rating = ?, description = ?, price = ?, studio = ?, quantity = ? where game_id = ?";
 
     private static final String DELETE_GAME_SQL =
             "delete from game where game_id = ?";
@@ -87,13 +87,13 @@ public class GameDaoJdbcTemplateImpl implements GameDao
     {
         jdbcTemplate.update(
                 UPDATE_GAME_SQL,
-                game.getId(),
                 game.getTitle(),
                 game.getEsrbRating(),
                 game.getDescription(),
                 game.getPrice(),
                 game.getStudio(),
-                game.getQuantity());
+                game.getQuantity(),
+                game.getId());
     }
 
     @Override
