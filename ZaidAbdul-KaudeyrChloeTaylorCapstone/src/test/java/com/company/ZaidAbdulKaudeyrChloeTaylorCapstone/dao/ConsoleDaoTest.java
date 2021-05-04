@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConsoleDaoTest {
 
+    @Before
+    public void setUp() throws Exception{
+
+    }
+
     @Test
     void addConsole() {
     }
