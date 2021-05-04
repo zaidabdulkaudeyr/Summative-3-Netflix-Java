@@ -82,6 +82,7 @@ public class ConsoleDaoJdbcTemplateImpl implements ConsoleDao {
     @Override
     public void updateConsole(Console console) {
         jdbcTemplate.update(UPDATE_CONSOLE_SQL,
+                console.getId(),
                 console.getModel(),
                 console.getManufacturer(),
                 console.getMemoryAmount(),
