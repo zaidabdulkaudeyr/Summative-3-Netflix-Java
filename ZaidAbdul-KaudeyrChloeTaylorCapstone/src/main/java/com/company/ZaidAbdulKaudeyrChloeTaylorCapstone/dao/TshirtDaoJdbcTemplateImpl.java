@@ -82,18 +82,20 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
 
     @Override
     public List<Tshirt> getTshirtByColor(String color){
-        return null;
+        return jdbcTemplate.query(SELECT_TSHIRTS_BY_COLOR_SQL, this::mapRowToTshirt, color);
     }
 
     @Override
     public List<Tshirt> getTshirtBySize(String size){
-        return null;
+        return jdbcTemplate.query(SELECT_TSHIRTS_BY_SIZE_SQL, this::mapRowToTshirt, size);
     }
 
     @Override
     public void updateTshirt(Tshirt tshirt)
     {
-        jdbcTemplate.update(UPDATE_TSHIRT_SQL,
+        jdbcTemplate.update(
+                UPDATE_TSHIRT_SQL,
+                tshirt.getId(),
                 tshirt.getSize(),
                 tshirt.getColor(),
                 tshirt.getDescription(),
