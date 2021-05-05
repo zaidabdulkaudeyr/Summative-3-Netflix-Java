@@ -128,9 +128,9 @@ public class ServiceLayer {
 
     //save
     @Transactional
-    public InvoiceViewModel saveAlbum(InvoiceViewModel viewModel)
+    public InvoiceViewModel addInvoice(InvoiceViewModel viewModel)
     {
-        //Persist Album
+        //Persist Invoice
         Invoice i = new Invoice();
         i.setName(viewModel.getName());
         i.setStreet(viewModel.getStreet());
