@@ -39,6 +39,7 @@ public class ConsoleDaoTest {
         console.setModel("Switch");
         console.setManufacturer("Nintendo");
         console.setMemoryAmount("32GB");
+        console.setProcessor("Intel");
         console.setPrice(new BigDecimal("299.00"));
         console.setQuantity(3);
 
@@ -65,6 +66,7 @@ public class ConsoleDaoTest {
         console.setModel("Switch");
         console.setManufacturer("Nintendo");
         console.setMemoryAmount("32GB");
+        console.setProcessor("Intel");
         console.setPrice(new BigDecimal("299.00"));
         console.setQuantity(3);
 
@@ -75,6 +77,7 @@ public class ConsoleDaoTest {
         console1.setModel("Play Station 5");
         console1.setManufacturer("Sony");
         console1.setMemoryAmount("825GB");
+        console1.setProcessor("Intel");
         console1.setPrice(new BigDecimal("500.00"));
         console1.setQuantity(3);
 
@@ -93,6 +96,7 @@ public class ConsoleDaoTest {
         console.setModel("Switch");
         console.setManufacturer("Nintendo");
         console.setMemoryAmount("32GB");
+        console.setProcessor("Intel");
         console.setPrice(new BigDecimal("299.00"));
         console.setQuantity(3);
 
@@ -103,6 +107,7 @@ public class ConsoleDaoTest {
         console1.setModel("Play Station 5");
         console1.setManufacturer("Sony");
         console1.setMemoryAmount("825GB");
+        console1.setProcessor("Intel");
         console1.setPrice(new BigDecimal("500.00"));
         console1.setQuantity(3);
 
@@ -122,6 +127,7 @@ public class ConsoleDaoTest {
         console.setModel("Switch");
         console.setManufacturer("Nintendo");
         console.setMemoryAmount("32GB");
+        console.setProcessor("Intel");
         console.setPrice(new BigDecimal("299.00"));
         console.setQuantity(3);
 
