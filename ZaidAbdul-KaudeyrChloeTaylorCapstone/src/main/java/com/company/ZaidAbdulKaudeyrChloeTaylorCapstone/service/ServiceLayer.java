@@ -1,15 +1,13 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.service;
 
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao.*;
-import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Console;
-import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Game;
-import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Invoice;
-import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.*;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -132,7 +130,7 @@ public class ServiceLayer {
     @Transactional
     public InvoiceViewModel saveAlbum(InvoiceViewModel viewModel)
     {
-        // Persist Album
+        //Persist Album
         Invoice i = new Invoice();
         i.setName(viewModel.getName());
         i.setStreet(viewModel.getStreet());
@@ -150,33 +148,97 @@ public class ServiceLayer {
         if(i.getItemType() == "console")
         {
 
+
+            //find specific console and input correct values
+            List<Console> consoleList = consoleDao.getAllConsoles();
+            for (Console console : consoleList)
+            {
+                if(console.getId() == i.getItemId())
+                {
+                    //set subtotal
+                    viewModel.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
+
+                    //set processing fee
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
+                    viewModel.setProcessingFee(processingFee.getFee());
+                    if(viewModel.getQuantity() > 10)
+                    {
+                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                    }
+
+                    //set taxes
+                    Tax tax = taxDao.getTaxByState(i.getState());
+                    viewModel.setTax(tax.getRate());
+
+
+                    //set the total
+                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
+
+                }
+            }
         }
+
         else if(i.getItemType() == "game")
         {
+            List<Game> gameList = gameDao.getAllGames();
+            for (Game game : gameList)
+            {
+                if(game.getId() == i.getItemId())
+                {
+                    //set subtotal
+                    viewModel.setSubtotal(game.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
+                    //set processing fee
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
+                    viewModel.setProcessingFee(processingFee.getFee());
+                    if(viewModel.getQuantity() > 10)
+                    {
+                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                    }
+
+                    //set taxes
+                    Tax tax = taxDao.getTaxByState(i.getState());
+                    viewModel.setTax(tax.getRate());
+
+
+                    //set the total
+                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
+
+                }
+            }
         }
+
         else if(i.getItemType() == "tshirt")
         {
+            List<Tshirt> tshirtList = tshirtDao.getAllTshirts();
+            for (Tshirt tshirt : tshirtList)
+            {
+                if(tshirt.getId() == i.getItemId())
+                {
+                    //set subtotal
+                    viewModel.setSubtotal(tshirt.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
+                    //set processing fee
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
+                    viewModel.setProcessingFee(processingFee.getFee());
+                    if(viewModel.getQuantity() > 10)
+                    {
+                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                    }
+
+                    //set taxes
+                    Tax tax = taxDao.getTaxByState(i.getState());
+                    viewModel.setTax(tax.getRate());
+
+
+                    //set the total
+                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
+
+                }
+            }
         }
 
-        a.setTitle(viewModel.getTitle());
-        a.setReleaseDate(viewModel.getReleaseDate());
-        a.setListPrice(viewModel.getListPrice());
-        a.setLabelId(viewModel.getLabel().getId());
-        a.setArtistId(viewModel.getArtist().getId());
-        a = albumDao.addAlbum(a);
-        viewModel.setId(a.getId());
-        // Add Album Id to Tracks and Persist Tracks
-        List<Track> tracks = viewModel.getTracks();
-        tracks.stream()
-                .forEach(t ->
-                {
-                    t.setAlbumId(viewModel.getId());
-                    trackDao.addTrack(t);
-                });
-        tracks = trackDao.getTracksByAlbum(viewModel.getId());
-        viewModel.setTracks(tracks);
+
         return viewModel;
     }
 }
