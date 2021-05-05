@@ -43,8 +43,7 @@ public class ConsoleController {
     @PutMapping(value = "/console/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsole(@PathVariable int id, @RequestBody Console console) {
-        //console = service.getConsole(id);
-        console = service.getConsole(id);
+        console.setId(id);
         service.updateConsole(console);
     }
 
