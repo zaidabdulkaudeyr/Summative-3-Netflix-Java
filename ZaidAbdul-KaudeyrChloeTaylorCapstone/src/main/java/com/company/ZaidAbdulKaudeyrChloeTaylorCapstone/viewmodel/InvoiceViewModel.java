@@ -1,21 +1,36 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.viewmodel;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class InvoiceViewModel
 {
     //properties
+    private int id;
     private String name;
     private String street;
     private String city;
     private String state;
-    private String zip;
+    private String zipcode;
     private String itemType;
     private int itemId;
+    private BigDecimal unitPrice;
     private int quantity;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal processingFee;
+    private BigDecimal total;
 
 
     //getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -48,12 +63,12 @@ public class InvoiceViewModel
         this.state = state;
     }
 
-    public String getZip() {
-        return zip;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getItemType() {
@@ -72,6 +87,14 @@ public class InvoiceViewModel
         this.itemId = itemId;
     }
 
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -80,18 +103,50 @@ public class InvoiceViewModel
         this.quantity = quantity;
     }
 
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
 
-    //equal and hashcode
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+    public BigDecimal getProcessingFee() {
+        return processingFee;
+    }
+
+    public void setProcessingFee(BigDecimal processingFee) {
+        this.processingFee = processingFee;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+
+    //equals and hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceViewModel that = (InvoiceViewModel) o;
-        return itemId == that.itemId && quantity == that.quantity && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zip, that.zip) && Objects.equals(itemType, that.itemType);
+        return id == that.id && itemId == that.itemId && quantity == that.quantity && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipcode, that.zipcode) && Objects.equals(itemType, that.itemType) && Objects.equals(unitPrice, that.unitPrice) && Objects.equals(subtotal, that.subtotal) && Objects.equals(tax, that.tax) && Objects.equals(processingFee, that.processingFee) && Objects.equals(total, that.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, street, city, state, zip, itemType, itemId, quantity);
+        return Objects.hash(id, name, street, city, state, zipcode, itemType, itemId, unitPrice, quantity, subtotal, tax, processingFee, total);
     }
 }

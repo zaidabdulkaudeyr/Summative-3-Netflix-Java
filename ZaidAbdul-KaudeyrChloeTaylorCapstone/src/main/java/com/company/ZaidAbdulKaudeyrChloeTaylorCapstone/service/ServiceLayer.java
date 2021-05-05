@@ -3,9 +3,12 @@ package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.service;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao.*;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Console;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Game;
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Invoice;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,27 +34,27 @@ public class ServiceLayer {
     //
     // console API
     //
-    Console addConsole(Console console) {
+    public Console addConsole(Console console) {
         return consoleDao.addConsole(console);
     }
 
-    Console getConsole(int id) {
+    public Console getConsole(int id) {
         return consoleDao.getConsole(id);
     }
 
-    List<Console> getAllConsoles() {
+    public List<Console> getAllConsoles() {
         return consoleDao.getAllConsoles();
     }
 
-    List<Console> getConsolesByManufacturer(String manufacturer) {
+    public List<Console> getConsolesByManufacturer(String manufacturer) {
         return consoleDao.getConsolesByManufacturer(manufacturer);
     }
 
-    void updateConsole(Console console) {
+    public void updateConsole(Console console) {
         consoleDao.updateConsole(console);
     }
 
-    void deleteConsole(int id) {
+    public void deleteConsole(int id) {
         consoleDao.deleteConsole(id);
     }
 
@@ -59,35 +62,35 @@ public class ServiceLayer {
     //
     // game API
     //
-    Game addGame(Game game) {
+    public Game addGame(Game game) {
         return gameDao.addGame(game);
     }
 
-    Game getGame(int id) {
+    public Game getGame(int id) {
         return gameDao.getGame(id);
     }
 
-    List<Game> getAllGames() {
+    public List<Game> getAllGames() {
         return gameDao.getAllGames();
     }
 
-    List<Game> getGamesByStudio(String studio) {
+    public List<Game> getGamesByStudio(String studio) {
         return gameDao.getGamesByStudio(studio);
     }
 
-    List<Game> getGamesByESRB(String esrbRating) {
+    public List<Game> getGamesByESRB(String esrbRating) {
         return gameDao.getGamesByESRB(esrbRating);
     }
 
-    List<Game> getGamesByTitle(String title) {
+    public List<Game> getGamesByTitle(String title) {
         return gameDao.getGamesByTitle(title);
     }
 
-    void updateGame(Game game) {
+    public void updateGame(Game game) {
         gameDao.updateGame(game);
     }
 
-    void deleteGame(int id) {
+    public void deleteGame(int id) {
         gameDao.deleteGame(id);
     }
 
@@ -95,33 +98,85 @@ public class ServiceLayer {
     //
     //Tshirt API
     //
-    Tshirt addTshirt(Tshirt tshirt) {
+    public Tshirt addTshirt(Tshirt tshirt) {
         return tshirtDao.addTshirt(tshirt);
     }
 
-    Tshirt getTshirt(int id) {
+    public Tshirt getTshirt(int id) {
         return tshirtDao.getTshirt(id);
     }
 
-    List<Tshirt> getAllTshirts() {
+    public List<Tshirt> getAllTshirts() {
         return tshirtDao.getAllTshirts();
     }
 
-    List<Tshirt> getTshirtByColor(String color) {
+    public List<Tshirt> getTshirtByColor(String color) {
         return tshirtDao.getTshirtByColor(color);
     }
 
-    List<Tshirt> getTshirtBySize(String size) {
+    public List<Tshirt> getTshirtBySize(String size) {
         return tshirtDao.getTshirtBySize(size);
     }
 
-    void updateTshirt(Tshirt tshirt) {
+    public void updateTshirt(Tshirt tshirt) {
         tshirtDao.updateTshirt(tshirt);
     }
 
-    void deleteTshirt(int id) {
+    public void deleteTshirt(int id) {
         tshirtDao.deleteTshirt(id);
     }
 
 
+
+    //save
+    @Transactional
+    public InvoiceViewModel saveAlbum(InvoiceViewModel viewModel)
+    {
+        // Persist Album
+        Invoice i = new Invoice();
+        i.setName(viewModel.getName());
+        i.setStreet(viewModel.getStreet());
+        i.setCity(viewModel.getCity());
+        i.setState(viewModel.getState());
+        i.setZipcode(viewModel.getZipcode());
+        i.setItemType(viewModel.getItemType());
+        i.setItemId(viewModel.getItemId());
+        i.setUnitPrice(viewModel.getUnitPrice());
+        i.setQuantity(viewModel.getQuantity());
+
+        i = invoiceDao.addInvoice(i);
+        viewModel.setId(i.getId());
+
+        if(i.getItemType() == "console")
+        {
+
+        }
+        else if(i.getItemType() == "game")
+        {
+
+        }
+        else if(i.getItemType() == "tshirt")
+        {
+
+        }
+
+        a.setTitle(viewModel.getTitle());
+        a.setReleaseDate(viewModel.getReleaseDate());
+        a.setListPrice(viewModel.getListPrice());
+        a.setLabelId(viewModel.getLabel().getId());
+        a.setArtistId(viewModel.getArtist().getId());
+        a = albumDao.addAlbum(a);
+        viewModel.setId(a.getId());
+        // Add Album Id to Tracks and Persist Tracks
+        List<Track> tracks = viewModel.getTracks();
+        tracks.stream()
+                .forEach(t ->
+                {
+                    t.setAlbumId(viewModel.getId());
+                    trackDao.addTrack(t);
+                });
+        tracks = trackDao.getTracksByAlbum(viewModel.getId());
+        viewModel.setTracks(tracks);
+        return viewModel;
+    }
 }
