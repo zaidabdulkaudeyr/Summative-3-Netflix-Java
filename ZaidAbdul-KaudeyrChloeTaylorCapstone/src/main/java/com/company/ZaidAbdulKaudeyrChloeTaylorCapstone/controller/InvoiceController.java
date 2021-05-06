@@ -1,5 +1,6 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.controller;
 
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Invoice;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.service.ServiceLayer;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class InvoiceController {
 
     @PostMapping(value = "/invoice")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public InvoiceViewModel addInvoice(@RequestBody InvoiceViewModel viewModel) {
-        return service.addInvoice(viewModel);
+    public Invoice addInvoice(@RequestBody Invoice invoice) {
+        return service.addInvoice(invoice);
     }
 }
