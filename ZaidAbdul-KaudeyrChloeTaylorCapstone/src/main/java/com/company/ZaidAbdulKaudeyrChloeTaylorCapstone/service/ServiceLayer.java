@@ -155,6 +155,9 @@ public class ServiceLayer {
             {
                 if(console.getId() == i.getItemId())
                 {
+                    //set unitPrice
+                    viewModel.setUnitPrice(console.getPrice());
+
                     //set subtotal
                     viewModel.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
@@ -185,6 +188,9 @@ public class ServiceLayer {
             {
                 if(game.getId() == i.getItemId())
                 {
+                    //set unitPrice
+                    viewModel.setUnitPrice(game.getPrice());
+
                     //set subtotal
                     viewModel.setSubtotal(game.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
@@ -215,6 +221,9 @@ public class ServiceLayer {
             {
                 if(tshirt.getId() == i.getItemId())
                 {
+                    //set unitPrice
+                    viewModel.setUnitPrice(tshirt.getPrice());
+
                     //set subtotal
                     viewModel.setSubtotal(tshirt.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
