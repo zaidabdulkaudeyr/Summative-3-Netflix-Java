@@ -1,5 +1,6 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.controller;
 
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao.ConsoleDao;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Console;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,31 +13,31 @@ import java.util.List;
 public class ConsoleController {
 
     @Autowired
-    ServiceLayer service;
+    ConsoleDao consoleDao;
 
     @GetMapping(value = "/console")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Console> getAllConsoles() {
-        List<Console> consoles = service.getAllConsoles();
+        List<Console> consoles = consoleDao.getAllConsoles();
         return consoles;
     }
 
     @RequestMapping(value = "/consoleMan/{manufacturer}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer){
-        return service.getConsolesByManufacturer(manufacturer);
+        return consoleDao.getConsolesByManufacturer(manufacturer);
     }
 
     @RequestMapping(value = "/console/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Console getConsole(@PathVariable int id) {
-        return service.getConsole(id);
+        return consoleDao.getConsole(id);
     }
 
     @PostMapping(value = "/console")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Console createConsole(@RequestBody Console console) {
-        service.addConsole(console);
+        consoleDao.addConsole(console);
         return console;
     }
 
@@ -44,12 +45,12 @@ public class ConsoleController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsole(@PathVariable int id, @RequestBody Console console) {
         console.setId(id);
-        service.updateConsole(console);
+        consoleDao.updateConsole(console);
     }
 
     @DeleteMapping(value = "/console/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable int id) {
-        service.deleteConsole(id);
+        consoleDao.deleteConsole(id);
     }
 }
