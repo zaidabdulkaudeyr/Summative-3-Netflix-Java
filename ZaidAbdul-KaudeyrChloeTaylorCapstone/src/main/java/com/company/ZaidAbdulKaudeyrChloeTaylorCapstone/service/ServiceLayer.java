@@ -174,7 +174,7 @@ public class ServiceLayer {
             }
         }
 
-        else if(i.getItemType() == "game")
+        else if(i.getItemType().equals("game"))
         {
             List<Game> gameList = gameDao.getAllGames();
             for (Game game : gameList)
@@ -205,7 +205,7 @@ public class ServiceLayer {
             }
         }
 
-        else if(i.getItemType() == "tshirt")
+        else if(i.getItemType().equals("tshirt"))
         {
             List<Tshirt> tshirtList = tshirtDao.getAllTshirts();
             for (Tshirt tshirt : tshirtList)
