@@ -139,8 +139,12 @@ public class ServiceLayer {
         i.setZipcode(invoice.getZipcode());
         i.setItemType(invoice.getItemType());
         i.setItemId(invoice.getItemId());
+        i.setUnitPrice(new BigDecimal(1.00));
         i.setQuantity(invoice.getQuantity());
-
+        i.setSubtotal(new BigDecimal(1.00));
+        i.setTax(new BigDecimal(1.00));
+        i.setProcessingFee(new BigDecimal(1.00));
+        i.setTotal(new BigDecimal(1.00));
 
         if(i.getItemType() == "console")
         {
