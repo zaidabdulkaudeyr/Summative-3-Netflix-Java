@@ -48,6 +48,7 @@ public class TshirtControllerTest {
                 .andExpect(status().isOk());              // ASSERT (status code is 200)
     }
 
+    //testing get by color
     @Test
     public void getTshirtByColor() throws Exception {
         Tshirt outputTshirt = new Tshirt();
@@ -95,7 +96,6 @@ public class TshirtControllerTest {
         mockMvc.perform(get("/tshirt/2"))
                 .andDo(print())
                 .andExpect(status().isOk());
-                //.andExpect(content().json(outputJson));
     }
 
     //add testing
@@ -142,8 +142,10 @@ public class TshirtControllerTest {
         inputTshirt.setDescription("Soft");
         inputTshirt.setQuantity(6);
         inputTshirt.setPrice(new BigDecimal("19.99"));
+
         //convert Java object to JSON
         String inputJson = mapper.writeValueAsString(inputTshirt);
+
         mockMvc.perform(
                 put("/tshirt")
                         .content(inputJson)
