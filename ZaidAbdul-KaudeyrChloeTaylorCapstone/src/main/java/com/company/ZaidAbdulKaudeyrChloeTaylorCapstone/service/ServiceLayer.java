@@ -154,6 +154,8 @@ public class ServiceLayer {
             {
                 if(console.getId() == i.getItemId())
                 {
+                    System.out.println("Zaid");
+
                     //set unitPrice
                     viewModel.setUnitPrice(console.getPrice());
 
