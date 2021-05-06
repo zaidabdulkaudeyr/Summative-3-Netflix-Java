@@ -60,6 +60,7 @@ public class TshirtControllerTest {
 
     }
 
+    //get by id testing
     @Test
     public void shouldReturnTshirtById() throws Exception{
         Tshirt outputTshirt = new Tshirt();
