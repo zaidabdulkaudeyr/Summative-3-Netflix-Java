@@ -142,8 +142,6 @@ public class ServiceLayer {
         i.setQuantity(viewModel.getQuantity());
         i.setUnitPrice(viewModel.getUnitPrice());
 
-        i = invoiceDao.addInvoice(i);
-        viewModel.setId(i.getId());
 
         if(i.getItemType() == "console")
         {
@@ -153,7 +151,7 @@ public class ServiceLayer {
             List<Console> consoleList = consoleDao.getAllConsoles();
             for (Console console : consoleList)
             {
-                if(console.getId() == 1)
+                if(console.getId() == i.getItemId())
                 {
                     //set unitPrice
                     //viewModel.setUnitPrice(new BigDecimal(299.00));
@@ -247,6 +245,9 @@ public class ServiceLayer {
             }
         }
 
+
+        i = invoiceDao.addInvoice(i);
+        viewModel.setId(i.getId());
 
         return viewModel;
     }
