@@ -153,7 +153,7 @@ public class ServiceLayer {
             List<Console> consoleList = consoleDao.getAllConsoles();
             for (Console console : consoleList)
             {
-                if(console.getId() == i.getItemId())
+                if(console.getId() == viewModel.getItemId())
                 {
                     //set unitPrice
                     //viewModel.setUnitPrice(new BigDecimal(299.00));
