@@ -154,7 +154,7 @@ public class ServiceLayer {
                 if(console.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    viewModel.setUnitPrice(console.getPrice());
+                    viewModel.setUnitPrice(new BigDecimal(299.00));
 
                     //set quantity
                     viewModel.setQuantity(viewModel.getQuantity());
