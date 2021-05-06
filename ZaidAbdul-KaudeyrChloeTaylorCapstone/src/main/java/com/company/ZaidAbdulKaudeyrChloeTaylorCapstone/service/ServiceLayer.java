@@ -139,16 +139,10 @@ public class ServiceLayer {
         i.setZipcode(invoice.getZipcode());
         i.setItemType(invoice.getItemType());
         i.setItemId(invoice.getItemId());
-        //i.setUnitPrice(new BigDecimal(1.00));
-        //i.setQuantity(invoice.getQuantity());
-        //i.setSubtotal(new BigDecimal(1.00));
-        //i.setTax(new BigDecimal(1.00));
-        //i.setProcessingFee(new BigDecimal(1.00));
-        //i.setTotal(new BigDecimal(1.00));
+        i.setQuantity(invoice.getQuantity());
 
         if(i.getItemType().equals("console"))
         {
-
 
             //find specific console and input correct values
             List<Console> consoleList = consoleDao.getAllConsoles();
@@ -165,25 +159,23 @@ public class ServiceLayer {
                     //set processing fee
                     ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType("Consoles");
                     i.setProcessingFee(processingFee.getFee());
-                    if(i.getQuantity() > 10)
+                    if(i.getQuantity() >= 10)
                     {
                         i.setProcessingFee(i.getProcessingFee().add(new BigDecimal(15.49)));
                     }
 
                     //set taxes
                     Tax tax = taxDao.getTaxByState(invoice.getState());
-                    i.setTax(tax.getRate());
-
+                    i.setTax(tax.getRate().multiply(i.getSubtotal()));
 
                     //set the total
-                    //i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getTotal())));
-                    i.setTotal(new BigDecimal(400.00));
+                    i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getSubtotal())));
                 }
             }
         }
 
 
-        /*
+
 
         else if(i.getItemType() == "game")
         {
@@ -250,11 +242,6 @@ public class ServiceLayer {
                 }
             }
         }
-
-
-
-
-         */
 
         i = invoiceDao.addInvoice(i);
         invoice.setId(i.getId());
