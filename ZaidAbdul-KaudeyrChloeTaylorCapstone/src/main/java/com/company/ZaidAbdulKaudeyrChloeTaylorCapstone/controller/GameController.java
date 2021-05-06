@@ -52,16 +52,17 @@ public class GameController {
         return gameDao.addGame(game);
     }
 
-    @PutMapping(value = "/game/{id}")
+    @PutMapping(value = "/game")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateGame(@PathVariable int id, @RequestBody Game game) {
-        game.setId(id);
+    public void updateGame(@RequestBody Game game) {
+        System.out.println("Updating Game id = " + game.getId());
         gameDao.updateGame(game);
     }
 
     @DeleteMapping(value = "/game/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {
+        System.out.println("Game deleted");
         gameDao.deleteGame(id);
     }
 
