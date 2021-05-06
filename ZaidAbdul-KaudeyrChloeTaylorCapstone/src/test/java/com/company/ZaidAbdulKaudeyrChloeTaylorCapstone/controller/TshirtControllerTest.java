@@ -14,13 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -51,13 +49,35 @@ public class TshirtControllerTest {
     }
 
     @Test
-    public void getTshirtByColor() {
+    public void getTshirtByColor() throws Exception {
+        Tshirt outputTshirt = new Tshirt();
+        outputTshirt.setSize("M");
+        outputTshirt.setColor("pink");
+        outputTshirt.setDescription("Very Pretty");
+        outputTshirt.setPrice(new BigDecimal("19.99"));
+        outputTshirt.setQuantity(5);
 
+        String outputJson = mapper.writeValueAsString(outputTshirt);
+
+        mockMvc.perform(get("/tshirtColor/pink"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void getTshirtBySize() {
+    public void getTshirtBySize() throws Exception{
+        Tshirt outputTshirt = new Tshirt();
+        outputTshirt.setSize("M");
+        outputTshirt.setColor("pink");
+        outputTshirt.setDescription("Very Pretty");
+        outputTshirt.setPrice(new BigDecimal("19.99"));
+        outputTshirt.setQuantity(5);
 
+        String outputJson = mapper.writeValueAsString(outputTshirt);
+
+        mockMvc.perform(get("/tshirtSize/M"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     //get by id testing
