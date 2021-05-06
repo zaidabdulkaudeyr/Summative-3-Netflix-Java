@@ -174,9 +174,6 @@ public class ServiceLayer {
             }
         }
 
-
-
-
         else if(i.getItemType() == "game")
         {
             List<Game> gameList = gameDao.getAllGames();
@@ -185,27 +182,25 @@ public class ServiceLayer {
                 if(game.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    viewModel.setUnitPrice(game.getPrice());
+                    i.setUnitPrice(game.getPrice());
 
                     //set subtotal
-                    viewModel.setSubtotal(game.getPrice().multiply(new BigDecimal(i.getQuantity())));
+                    i.setSubtotal(game.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
                     //set processing fee
-                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
-                    viewModel.setProcessingFee(processingFee.getFee());
-                    if(viewModel.getQuantity() > 10)
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType("Games");
+                    i.setProcessingFee(processingFee.getFee());
+                    if(i.getQuantity() >= 10)
                     {
-                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                        i.setProcessingFee(i.getProcessingFee().add(new BigDecimal(15.49)));
                     }
 
                     //set taxes
-                    Tax tax = taxDao.getTaxByState(i.getState());
-                    viewModel.setTax(tax.getRate());
-
+                    Tax tax = taxDao.getTaxByState(invoice.getState());
+                    i.setTax(tax.getRate().multiply(i.getSubtotal()));
 
                     //set the total
-                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
-
+                    i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getSubtotal())));
                 }
             }
         }
@@ -218,27 +213,25 @@ public class ServiceLayer {
                 if(tshirt.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    viewModel.setUnitPrice(tshirt.getPrice());
+                    i.setUnitPrice(tshirt.getPrice());
 
                     //set subtotal
-                    viewModel.setSubtotal(tshirt.getPrice().multiply(new BigDecimal(i.getQuantity())));
+                    i.setSubtotal(tshirt.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
                     //set processing fee
-                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
-                    viewModel.setProcessingFee(processingFee.getFee());
-                    if(viewModel.getQuantity() > 10)
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType("T-shirts");
+                    i.setProcessingFee(processingFee.getFee());
+                    if(i.getQuantity() >= 10)
                     {
-                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                        i.setProcessingFee(i.getProcessingFee().add(new BigDecimal(15.49)));
                     }
 
                     //set taxes
-                    Tax tax = taxDao.getTaxByState(i.getState());
-                    viewModel.setTax(tax.getRate());
-
+                    Tax tax = taxDao.getTaxByState(invoice.getState());
+                    i.setTax(tax.getRate().multiply(i.getSubtotal()));
 
                     //set the total
-                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
-
+                    i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getSubtotal())));
                 }
             }
         }
