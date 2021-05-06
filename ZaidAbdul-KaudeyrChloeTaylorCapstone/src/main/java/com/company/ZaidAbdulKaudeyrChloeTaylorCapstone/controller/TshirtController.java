@@ -35,7 +35,7 @@ public class TshirtController {
     }
 
     //get by size
-    @RequestMapping(value = "/tshirtSize/{color}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tshirtSize/{size}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Tshirt> getTshirtBySize(@PathVariable String size) {
         return tshirtDao.getTshirtBySize(size);
