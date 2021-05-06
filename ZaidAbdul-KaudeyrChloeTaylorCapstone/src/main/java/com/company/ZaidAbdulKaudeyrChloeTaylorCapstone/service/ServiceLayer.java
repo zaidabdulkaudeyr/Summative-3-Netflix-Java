@@ -139,7 +139,6 @@ public class ServiceLayer {
         i.setZipcode(viewModel.getZipcode());
         i.setItemType(viewModel.getItemType());
         i.setItemId(viewModel.getItemId());
-        i.setUnitPrice(viewModel.getUnitPrice());
         i.setQuantity(viewModel.getQuantity());
 
         i = invoiceDao.addInvoice(i);
