@@ -139,14 +139,14 @@ public class ServiceLayer {
         i.setZipcode(invoice.getZipcode());
         i.setItemType(invoice.getItemType());
         i.setItemId(invoice.getItemId());
-        i.setUnitPrice(new BigDecimal(1.00));
-        i.setQuantity(invoice.getQuantity());
-        i.setSubtotal(new BigDecimal(1.00));
-        i.setTax(new BigDecimal(1.00));
-        i.setProcessingFee(new BigDecimal(1.00));
-        i.setTotal(new BigDecimal(1.00));
+        //i.setUnitPrice(new BigDecimal(1.00));
+        //i.setQuantity(invoice.getQuantity());
+        //i.setSubtotal(new BigDecimal(1.00));
+        //i.setTax(new BigDecimal(1.00));
+        //i.setProcessingFee(new BigDecimal(1.00));
+        //i.setTotal(new BigDecimal(1.00));
 
-        if(i.getItemType() == "console")
+        if(i.getItemType().equals("console"))
         {
 
 
@@ -157,13 +157,13 @@ public class ServiceLayer {
                 if(console.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    invoice.setUnitPrice(console.getPrice());
+                    i.setUnitPrice(console.getPrice());
 
                     //set subtotal
                     i.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
                     //set processing fee
-                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
+                    ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType("Consoles");
                     i.setProcessingFee(processingFee.getFee());
                     if(i.getQuantity() > 10)
                     {
@@ -176,8 +176,8 @@ public class ServiceLayer {
 
 
                     //set the total
-                    i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getTotal())));
-
+                    //i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getTotal())));
+                    i.setTotal(new BigDecimal(400.00));
                 }
             }
         }
@@ -259,6 +259,6 @@ public class ServiceLayer {
         i = invoiceDao.addInvoice(i);
         invoice.setId(i.getId());
 
-        return invoice;
+        return i;
     }
 }
