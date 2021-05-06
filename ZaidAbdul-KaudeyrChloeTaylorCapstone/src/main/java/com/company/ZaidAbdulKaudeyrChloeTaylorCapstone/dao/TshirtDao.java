@@ -1,6 +1,5 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao;
 
-import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Game;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
 
 import java.util.List;

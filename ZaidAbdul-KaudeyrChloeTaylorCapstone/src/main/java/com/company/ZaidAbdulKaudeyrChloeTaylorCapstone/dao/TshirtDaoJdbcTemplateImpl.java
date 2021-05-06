@@ -3,18 +3,19 @@ package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
 public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
+
+    private JdbcTemplate jdbcTemplate;
 
     // prepared statements
     private static final String INSERT_TSHIRT_SQL =
@@ -38,8 +39,6 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
     private static final String UPDATE_TSHIRT_SQL =
             "update t_shirt set size = ?, color = ?, description = ?, price = ?, quantity = ? where t_shirt_id = ?";
 
-    private JdbcTemplate jdbcTemplate;
-
     @Autowired
     public TshirtDaoJdbcTemplateImpl (JdbcTemplate jdbcTemplate)
     {
@@ -57,7 +56,7 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
                 tshirt.getPrice(),
                 tshirt.getQuantity());
 
-        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        int id = jdbcTemplate.queryForObject("select LAST_INSERT_ID()", Integer.class);
         tshirt.setId(id);
         return tshirt;
     }
@@ -83,7 +82,7 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
     public List<Tshirt> getTshirtByColor(String color){
         try
         {
-            return jdbcTemplate.query(SELECT_TSHIRT_SQL, this::mapRowToTshirt, color);
+            return jdbcTemplate.query(SELECT_TSHIRTS_BY_COLOR_SQL, this::mapRowToTshirt, color);
         } catch (EmptyResultDataAccessException e)
         {
             // if nothing is returned just catch the exception and return null
@@ -95,7 +94,7 @@ public class TshirtDaoJdbcTemplateImpl implements TshirtDao{
     public List<Tshirt> getTshirtBySize(String size){
         try
         {
-            return jdbcTemplate.query(SELECT_TSHIRT_SQL, this::mapRowToTshirt, size);
+            return jdbcTemplate.query(SELECT_TSHIRTS_BY_SIZE_SQL, this::mapRowToTshirt, size);
         } catch (EmptyResultDataAccessException e)
         {
             // if nothing is returned just catch the exception and return null
