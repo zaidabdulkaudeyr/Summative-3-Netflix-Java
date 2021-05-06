@@ -139,6 +139,8 @@ public class ServiceLayer {
         i.setZipcode(viewModel.getZipcode());
         i.setItemType(viewModel.getItemType());
         i.setItemId(viewModel.getItemId());
+        i.setQuantity(viewModel.getQuantity());
+        i.setUnitPrice(viewModel.getUnitPrice());
 
         i = invoiceDao.addInvoice(i);
         viewModel.setId(i.getId());
@@ -154,10 +156,7 @@ public class ServiceLayer {
                 if(console.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    viewModel.setUnitPrice(new BigDecimal(299.00));
-
-                    //set quantity
-                    viewModel.setQuantity(viewModel.getQuantity());
+                    //viewModel.setUnitPrice(new BigDecimal(299.00));
 
                     //set subtotal
                     viewModel.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
@@ -192,9 +191,6 @@ public class ServiceLayer {
                     //set unitPrice
                     viewModel.setUnitPrice(game.getPrice());
 
-                    //set quantity
-                    viewModel.setQuantity(viewModel.getQuantity());
-
                     //set subtotal
                     viewModel.setSubtotal(game.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
@@ -227,9 +223,6 @@ public class ServiceLayer {
                 {
                     //set unitPrice
                     viewModel.setUnitPrice(tshirt.getPrice());
-
-                    //set quantity
-                    viewModel.setQuantity(viewModel.getQuantity());
 
                     //set subtotal
                     viewModel.setSubtotal(tshirt.getPrice().multiply(new BigDecimal(i.getQuantity())));
