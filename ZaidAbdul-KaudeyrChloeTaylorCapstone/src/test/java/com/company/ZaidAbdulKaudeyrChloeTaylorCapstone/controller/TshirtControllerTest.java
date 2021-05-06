@@ -1,19 +1,27 @@
 package com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.controller;
 
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.dao.TshirtDao;
 import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.model.Tshirt;
+import com.company.ZaidAbdulKaudeyrChloeTaylorCapstone.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -27,15 +35,24 @@ public class TshirtControllerTest {
     // ObjectMapper used to convert Java objects to JSON and vise versa
     private ObjectMapper mapper = new ObjectMapper();
 
-    // A list of records for testing purposes
-    private List<Tshirt> tshirtList;
+    // A list of tshirts for testing purposes
+    //private List<Tshirt> tshirtList;
 
-    // Testing GET /records
+    @MockBean
+    TshirtDao tshirtList;
+
+    @Before
+    public void setUp() {
+        // Standard set up method, for instantiating test object
+        // don't have to do anything special for mockMvc since it's autowired
+    }
+
+
+    // Testing GET
     @Test
     public void shouldReturnAllTshirts() throws Exception  {
         // ARRANGE
         // Convert Java object to JSON
-
         String outputJson = mapper.writeValueAsString(tshirtList);
 
         //ACT
@@ -53,14 +70,44 @@ public class TshirtControllerTest {
     }
 
     @Test
-    public void getTshirt() {
+    public void shouldReturnTshirtById() throws Exception{
+        Tshirt outputTshirt = new Tshirt();
+        outputTshirt.setSize("M");
+        outputTshirt.setColor("pink");
+        outputTshirt.setDescription("Very Pretty");
+        outputTshirt.setPrice(new BigDecimal("19.99"));
+        outputTshirt.setQuantity(5);
+
+        String outputJson = mapper.writeValueAsString(outputTshirt);
+
+        mockMvc.perform(get("/tshirt/2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(outputJson));
     }
 
     @Test
-    public void addTshirt() {
+    public void shouldReturnNewRecordTshirt() throws Exception{
+        // Arrange
+        Tshirt tshirt = new Tshirt();
+        tshirt.setSize("M");
+        tshirt.setColor("Pink");
+        tshirt.setDescription("Super Soft and Ultra Plush");
+        tshirt.setPrice(new BigDecimal("19.99"));
+        tshirt.setQuantity(10);
+
+        // Convert Java to JSON
+        String inputJson = mapper.writeValueAsString(tshirt);
     }
 
     @Test
     public void updateTshirt() {
+    }
+
+    @Test
+    public void shouldDeleteByIdTshirt() throws Exception {
+        mockMvc.perform(delete("/tshirt/2"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
