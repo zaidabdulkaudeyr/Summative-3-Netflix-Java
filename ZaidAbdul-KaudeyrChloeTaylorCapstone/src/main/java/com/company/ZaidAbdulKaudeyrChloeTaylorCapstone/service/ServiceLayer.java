@@ -157,23 +157,23 @@ public class ServiceLayer {
                     //viewModel.setUnitPrice(new BigDecimal(299.00));
 
                     //set subtotal
-                    viewModel.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
+                    i.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
 
                     //set processing fee
                     ProcessingFee processingFee = processingFeeDao.getProcessingFeeByType(i.getItemType());
-                    viewModel.setProcessingFee(processingFee.getFee());
-                    if(viewModel.getQuantity() > 10)
+                    i.setProcessingFee(processingFee.getFee());
+                    if(i.getQuantity() > 10)
                     {
-                        viewModel.setProcessingFee(viewModel.getProcessingFee().add(new BigDecimal(15.49)));
+                        i.setProcessingFee(i.getProcessingFee().add(new BigDecimal(15.49)));
                     }
 
                     //set taxes
-                    Tax tax = taxDao.getTaxByState(i.getState());
-                    viewModel.setTax(tax.getRate());
+                    Tax tax = taxDao.getTaxByState(viewModel.getState());
+                    i.setTax(tax.getRate());
 
 
                     //set the total
-                    viewModel.setTotal(viewModel.getProcessingFee().add(viewModel.getTax().add(viewModel.getTotal())));
+                    i.setTotal(i.getProcessingFee().add(i.getTax().add(i.getTotal())));
 
                 }
             }
