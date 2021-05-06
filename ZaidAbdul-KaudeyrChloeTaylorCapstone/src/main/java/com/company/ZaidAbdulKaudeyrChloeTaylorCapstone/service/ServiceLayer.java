@@ -128,19 +128,18 @@ public class ServiceLayer {
 
     //save
     @Transactional
-    public InvoiceViewModel addInvoice(InvoiceViewModel viewModel)
+    public Invoice addInvoice(Invoice invoice)
     {
         //Persist Invoice
         Invoice i = new Invoice();
-        i.setName(viewModel.getName());
-        i.setStreet(viewModel.getStreet());
-        i.setCity(viewModel.getCity());
-        i.setState(viewModel.getState());
-        i.setZipcode(viewModel.getZipcode());
-        i.setItemType(viewModel.getItemType());
-        i.setItemId(viewModel.getItemId());
-        i.setQuantity(viewModel.getQuantity());
-        i.setUnitPrice(viewModel.getUnitPrice());
+        i.setName(invoice.getName());
+        i.setStreet(invoice.getStreet());
+        i.setCity(invoice.getCity());
+        i.setState(invoice.getState());
+        i.setZipcode(invoice.getZipcode());
+        i.setItemType(invoice.getItemType());
+        i.setItemId(invoice.getItemId());
+        i.setQuantity(invoice.getQuantity());
 
 
         if(i.getItemType() == "console")
@@ -154,7 +153,7 @@ public class ServiceLayer {
                 if(console.getId() == i.getItemId())
                 {
                     //set unitPrice
-                    //viewModel.setUnitPrice(new BigDecimal(299.00));
+                    invoice.setUnitPrice(console.getPrice());
 
                     //set subtotal
                     i.setSubtotal(console.getPrice().multiply(new BigDecimal(i.getQuantity())));
@@ -168,7 +167,7 @@ public class ServiceLayer {
                     }
 
                     //set taxes
-                    Tax tax = taxDao.getTaxByState(viewModel.getState());
+                    Tax tax = taxDao.getTaxByState(invoice.getState());
                     i.setTax(tax.getRate());
 
 
@@ -178,6 +177,9 @@ public class ServiceLayer {
                 }
             }
         }
+
+
+        /*
 
         else if(i.getItemType() == "game")
         {
@@ -246,9 +248,13 @@ public class ServiceLayer {
         }
 
 
-        i = invoiceDao.addInvoice(i);
-        viewModel.setId(i.getId());
 
-        return viewModel;
+
+         */
+
+        i = invoiceDao.addInvoice(i);
+        invoice.setId(i.getId());
+
+        return invoice;
     }
 }
