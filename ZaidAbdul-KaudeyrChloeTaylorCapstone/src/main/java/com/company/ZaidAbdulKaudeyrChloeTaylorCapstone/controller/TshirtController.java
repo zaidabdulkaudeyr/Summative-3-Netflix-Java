@@ -58,7 +58,7 @@ public class TshirtController {
 
     //update tshirt
     @RequestMapping(value = "/tshirt", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTshirt(@RequestBody Tshirt tshirt){
         System.out.println("Updating Tshirt id = " + tshirt.getId());
         tshirtDao.updateTshirt(tshirt);

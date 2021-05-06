@@ -76,6 +76,7 @@ public class TshirtControllerTest {
                 .andExpect(content().json(outputJson));
     }
 
+    //add testing
     @Test
     public void shouldReturnNewRecordTshirt() throws Exception{
         // Arrange
@@ -103,7 +104,7 @@ public class TshirtControllerTest {
         //convert Java object to JSON
         String inputJson = mapper.writeValueAsString(inputTshirt);
         mockMvc.perform(
-                put("/tshirts")
+                put("/tshirt")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON)
         )
