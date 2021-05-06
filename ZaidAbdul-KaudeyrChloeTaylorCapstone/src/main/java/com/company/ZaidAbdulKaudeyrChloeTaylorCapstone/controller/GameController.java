@@ -21,25 +21,25 @@ public class GameController {
         return games;
     }
 
-    @RequestMapping(value = "/gameStudio/(studio}", method = RequestMethod.GET)
+    @RequestMapping(value = "/gameStudio/{studio}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
         return service.getGamesByStudio(studio);
     }
 
-    @RequestMapping(value = "/gameESRB/(esrbRating}", method = RequestMethod.GET)
+    @RequestMapping(value = "/gameESRB/{esrbRating}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByESRB(@PathVariable String esrbRating) {
         return service.getGamesByESRB(esrbRating);
     }
 
-    @RequestMapping(value = "/gameTitle/(title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/gameTitle/{title}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
         return service.getGamesByTitle(title);
     }
 
-    @RequestMapping(value = "/game/(id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/game/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public Game getGame(@PathVariable int id) {
         return service.getGame(id);
